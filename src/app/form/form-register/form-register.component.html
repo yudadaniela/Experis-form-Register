@@ -1,0 +1,77 @@
+<form [formGroup]="formRegister" (ngSubmit)="onsubmit()">
+    
+    <div>
+        <label for="nickName">Nick Name</label>
+        <input type="text" formControlName="nickName" id="nickName" />
+      </div>
+      <div class="required" *ngIf="formRegister.get('nickName')?.hasError('required')">
+        Firt Name is required
+      </div>
+      <div class="required" *ngIf="formRegister.get('nickName')?.hasError('minlength')">
+        Firt Name must be at least 4 characters
+      </div>
+
+    <div>
+    <label for="firtName">Firt Name</label>
+    <input type="text" formControlName="firtName" id="firtName" />
+  </div>
+  <div class="required" *ngIf="formRegister.get('firtName')?.hasError('required')">
+    Firt Name is required
+  </div>
+  <div class="required" *ngIf="formRegister.get('firtName')?.hasError('minlength')">
+    Firt Name must be at least 4 characters
+  </div>
+  
+  <div>
+    <label for="secondName">Second Name</label>
+    <input type="text" formControlName="secondName" id="secondName" />
+  </div>
+  <div class="required" *ngIf="formRegister.get('secondName')?.hasError('minlength')">
+    Second Name must be at least 4 characters
+  </div>
+
+  <div>
+    <label for="firtSurtname">Firts Surtname</label>
+    <input type="text" formControlName="firtSurtname" id="firtSurtname" />
+  </div>
+   <div>
+    <div class="required" *ngIf="formRegister.get('firtSurtname')?.hasError('required')">
+     Firt Surtname is required
+    </div>
+    <div class="required" *ngIf="formRegister.get('firtSurtname')?.hasError('minlength')">
+        Firt Surtname must be at least 4 characters
+    </div>
+    
+    <div>
+        <label for="secondSurtname">Second Surtname</label>
+        <input type="text" formControlName="secondSurtname" id="secondSurtname"/>
+    </div>
+    </div>
+  <div class="required" *ngIf="formRegister.get('secondSurtname')?.hasError('minlength')">
+    Second Surtname must be at least 4 characters
+</div>
+
+  <div>
+    <label for="email">Email</label>
+    <input type="email" formControlName="email" id="email" />
+  </div>
+  <div class="required" *ngIf="formRegister.get('email')?.hasError('required')">
+    Email  is required
+   </div>
+   <div class="required" *ngIf="formRegister.get('email')?.hasError('email')">
+     Email form is required
+   </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input type="password" formControlName="password" id="password" />
+  </div>
+  <div class="required" *ngIf="formRegister.get('password')?.hasError('required')">
+    Password is required
+   </div>
+   <div class="required" *ngIf="formRegister.get('password')?.hasError('minlength')">
+       Password must be at least 6 characters
+   </div>
+
+  <button type="submit">Send</button>
+</form>
