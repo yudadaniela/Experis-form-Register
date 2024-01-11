@@ -1,77 +1,156 @@
 <form [formGroup]="formRegister" (ngSubmit)="onsubmit()">
-    
+  <div formGroupName="personalInfo">
     <div>
-        <label for="nickName">Nick Name</label>
-        <input type="text" formControlName="nickName" id="nickName" />
-      </div>
-      <div class="required" *ngIf="formRegister.get('nickName')?.hasError('required')">
-        Firt Name is required
-      </div>
-      <div class="required" *ngIf="formRegister.get('nickName')?.hasError('minlength')">
-        Firt Name must be at least 4 characters
-      </div>
-
-    <div>
-    <label for="firtName">Firt Name</label>
-    <input type="text" formControlName="firtName" id="firtName" />
-  </div>
-  <div class="required" *ngIf="formRegister.get('firtName')?.hasError('required')">
-    Firt Name is required
-  </div>
-  <div class="required" *ngIf="formRegister.get('firtName')?.hasError('minlength')">
-    Firt Name must be at least 4 characters
-  </div>
-  
-  <div>
-    <label for="secondName">Second Name</label>
-    <input type="text" formControlName="secondName" id="secondName" />
-  </div>
-  <div class="required" *ngIf="formRegister.get('secondName')?.hasError('minlength')">
-    Second Name must be at least 4 characters
-  </div>
-
-  <div>
-    <label for="firtSurtname">Firts Surtname</label>
-    <input type="text" formControlName="firtSurtname" id="firtSurtname" />
-  </div>
-   <div>
-    <div class="required" *ngIf="formRegister.get('firtSurtname')?.hasError('required')">
-     Firt Surtname is required
+      <label for="nickName">Nick Name</label>
+      <input type="text" formControlName="nickName" id="nickName" />
     </div>
-    <div class="required" *ngIf="formRegister.get('firtSurtname')?.hasError('minlength')">
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.nickName')?.hasError('required')"
+    >
+      Firt Name is required
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.nickName')?.hasError('minlength')"
+    >
+      Firt Name must be at least 4 characters
+    </div>
+
+    <div>
+      <label for="firtName">Firt Name</label>
+      <input type="text" formControlName="firtName" id="firtName" />
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.firtName')?.hasError('required')"
+    >
+      Firt Name is required
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.firtName')?.hasError('minlength')"
+    >
+      Firt Name must be at least 4 characters
+    </div>
+
+    <div>
+      <label for="secondName">Second Name</label>
+      <input type="text" formControlName="secondName" id="secondName" />
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.secondName')?.hasError('minlength')"
+    >
+      Second Name must be at least 4 characters
+    </div>
+
+    <div>
+      <label for="firtSurtname">Firts Surtname</label>
+      <input type="text" formControlName="firtSurtname" id="firtSurtname" />
+    </div>
+    <div>
+      <div
+        class="required"
+        *ngIf="
+          formRegister.get('personalInfo.firtSurtname')?.hasError('required')
+        "
+      >
+        Firt Surtname is required
+      </div>
+      <div
+        class="required"
+        *ngIf="
+          formRegister.get('personalInfo.firtSurtname')?.hasError('minlength')
+        "
+      >
         Firt Surtname must be at least 4 characters
-    </div>
-    
-    <div>
+      </div>
+
+      <div>
         <label for="secondSurtname">Second Surtname</label>
-        <input type="text" formControlName="secondSurtname" id="secondSurtname"/>
+        <input
+          type="text"
+          formControlName="secondSurtname"
+          id="secondSurtname"
+        />
+      </div>
     </div>
+    <div
+      class="required"
+      *ngIf="
+        formRegister.get('personalInfo.secondSurtname')?.hasError('minlength')
+      "
+    >
+      Second Surtname must be at least 4 characters
     </div>
-  <div class="required" *ngIf="formRegister.get('secondSurtname')?.hasError('minlength')">
-    Second Surtname must be at least 4 characters
-</div>
 
-  <div>
-    <label for="email">Email</label>
-    <input type="email" formControlName="email" id="email" />
+    <div>
+      <label for="email">Email</label>
+      <input type="email" formControlName="email" id="email" />
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.email')?.hasError('required')"
+    >
+      Email is required
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.email')?.hasError('email')"
+    >
+      Email form is required
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" id="password" />
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.password')?.hasError('required')"
+    >
+      Password is required
+    </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.password')?.hasError('minlength')"
+    >
+      Password must be at least 6 characters
+    </div>
   </div>
-  <div class="required" *ngIf="formRegister.get('email')?.hasError('required')">
-    Email  is required
-   </div>
-   <div class="required" *ngIf="formRegister.get('email')?.hasError('email')">
-     Email form is required
-   </div>
+  <div formGroupName="addressInfo">
+    <div>
+        <label for="street">Street</label>
+        <input type="text" formControlName="street" id="street" />
+      </div>
+      <div
+        class="required"
+        *ngIf="formRegister.get('addressInfo.street')?.hasError('required')"
+      >
+        Street is required
+      </div>
+      <div>
+        <label for="city">City</label>
+        <input type="text" formControlName="city" id="city" />
+      </div>
+      <div
+        class="required"
+        *ngIf="formRegister.get('addressInfo.city')?.hasError('required')"
+      >
+        City is required
+      </div>
+      <div>
+        <label for="zipCode">Zip Code</label>
+        <input type="text" formControlName="zipCode" id="zipCode" />
+      </div>
+      <div
+        class="required"
+        *ngIf="formRegister.get('addressInfo.zipCode')?.hasError('pattern')"
+      >
+       valid 5 digit
+      </div>
 
-  <div>
-    <label for="password">Password</label>
-    <input type="password" formControlName="password" id="password" />
   </div>
-  <div class="required" *ngIf="formRegister.get('password')?.hasError('required')">
-    Password is required
-   </div>
-   <div class="required" *ngIf="formRegister.get('password')?.hasError('minlength')">
-       Password must be at least 6 characters
-   </div>
-
   <button type="submit">Send</button>
 </form>
