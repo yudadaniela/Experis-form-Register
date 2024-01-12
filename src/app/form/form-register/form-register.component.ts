@@ -62,34 +62,42 @@ export class FormRegisterComponent {
     });
   }
 
-  onsubmit() {
-    console.log(this.formRegister.value);
+  // onsubmit() {
+  //   console.log(this.formRegister.value);
 
+  //   if (this.formRegister.valid) {
+  //     if (
+  //       this.formRegisterService.isEmailUnique(
+  //         this.formRegister.get('personalInfo.email')?.value
+  //       )
+  //     ) {
+  //       const data = {
+  //         nickName: this.formRegister.get('personalInfo.nickName')?.value,
+  //         fullName:
+  //           this.formRegister.get('personalInfo.firtName')?.value +
+  //           ' ' +
+  //           this.formRegister.get('personalInfo.secondName')?.value +
+  //           ' ' +
+  //           this.formRegister.get('personalInfo.firtSurtname')?.value +
+  //           ' ' +
+  //           this.formRegister.get('personalInfo.secondSurtname')?.value,
+  //         email: this.formRegister.get('personalInfo.email')?.value,
+  //         password: this.formRegister.get('personalInfo.password')?.value,
+  //       };
+  //       this.formRegisterService.addUser(data);
+  //       this.showMessage('Register', 'OK');
+  //       console.log(this.formRegisterService.getUsers());
+  //     } else {
+  //       this.showMessage('Register', 'The email is registered');
+  //     }
+  //   }
+  // }
+
+  onSubmit() {
     if (this.formRegister.valid) {
-      if (
-        this.formRegisterService.isEmailUnique(
-          this.formRegister.get('personalInfo.email')?.value
-        )
-      ) {
-        const data = {
-          nickName: this.formRegister.get('personalInfo.nickName')?.value,
-          fullName:
-            this.formRegister.get('personalInfo.firtName')?.value +
-            ' ' +
-            this.formRegister.get('personalInfo.secondName')?.value +
-            ' ' +
-            this.formRegister.get('personalInfo.firtSurtname')?.value +
-            ' ' +
-            this.formRegister.get('personalInfo.secondSurtname')?.value,
-          email: this.formRegister.get('personalInfo.email')?.value,
-          password: this.formRegister.get('personalInfo.password')?.value,
-        };
-        this.formRegisterService.addUser(data);
-        this.showMessage('Register', 'OK');
-        console.log(this.formRegisterService.getUsers());
-      } else {
-        this.showMessage('Register', 'The email is registered');
-      }
+
+    } else {
+      
     }
   }
 }
