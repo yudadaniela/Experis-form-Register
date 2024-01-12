@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
 import { Register } from '../../models/register';
 import { map, catchError } from 'rxjs/operators';
+import { userMapper } from 'src/app/utils/user-mapper';
 
 @Component({
   selector: 'app-form-register',
@@ -33,7 +34,11 @@ export class FormRegisterComponent {
         secondName: ['', Validators.minLength(4)],
         firtSurtname: ['', [Validators.required, Validators.minLength(4)]],
         secondSurtname: ['', Validators.minLength(4)],
-        email: ['', [Validators.required, Validators.email],[this.validateEmailAsync.bind(this)]],
+        email: [
+          '',
+          [Validators.required, Validators.email],
+          [this.validateEmailAsync.bind(this)]
+        ],
         password: ['', [Validators.required, Validators.minLength(6)]],
       }),
       addressInfo: this.fb.group({
@@ -44,7 +49,6 @@ export class FormRegisterComponent {
     });
   }
 
- 
   validateEmailAsync(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
@@ -93,11 +97,16 @@ export class FormRegisterComponent {
   //   }
   // }
 
-  onSubmit() {
+  onsubmit() {
     if (this.formRegister.valid) {
-
+      const user = userMapper(this.formRegister.value);
+      this.formRegisterService.addUser(user);
+      console.log(
+        'Successfully registered',
+        this.formRegisterService.getUsers()
+      );
     } else {
-      
+      console.log('INVALID FORM:', this.formRegister.value);
     }
   }
 }

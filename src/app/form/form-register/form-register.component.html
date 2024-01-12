@@ -101,6 +101,12 @@
     >
       Email form is required
     </div>
+    <div
+      class="required"
+      *ngIf="formRegister.get('personalInfo.email')?.hasError('uniqueEmail')"
+    >
+      Email already exists
+    </div>
 
     <div>
       <label for="password">Password</label>
