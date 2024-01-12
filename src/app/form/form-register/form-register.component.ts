@@ -33,7 +33,7 @@ export class FormRegisterComponent {
         secondName: ['', Validators.minLength(4)],
         firtSurtname: ['', [Validators.required, Validators.minLength(4)]],
         secondSurtname: ['', Validators.minLength(4)],
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required, Validators.email],[this.validateEmailAsync.bind(this)]],
         password: ['', [Validators.required, Validators.minLength(6)]],
       }),
       addressInfo: this.fb.group({
