@@ -7,11 +7,13 @@ import { FormRegisterComponent } from './form/form-register/form-register.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormLocationComponent } from './form/form-location/form-location.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormRegisterComponent
+    FormRegisterComponent,
+    FormLocationComponent
   ],
   imports: [
     BrowserModule,
