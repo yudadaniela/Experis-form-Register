@@ -14,6 +14,7 @@ import { Observable, of } from 'rxjs';
 import { Register } from '../../models/register';
 import { map, catchError } from 'rxjs/operators';
 import { userMapper } from 'src/app/utils/user-mapper';
+import { FormLocationComponent } from "../form-location/form-location.component";
 
 @Component({
   selector: 'app-form-register',
@@ -25,7 +26,8 @@ export class FormRegisterComponent {
   constructor(
     private fb: FormBuilder,
     private formRegisterService: ServicesFormRegisterService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private formLocation: FormLocationComponent
   ) {
     this.formRegister = this.fb.group({
       personalInfo: this.fb.group({
@@ -41,12 +43,14 @@ export class FormRegisterComponent {
         ],
         password: ['', [Validators.required, Validators.minLength(6)]],
       }),
+      locationInfo:this.formLocation.formulario,
       addressInfo: this.fb.group({
         street: ['', Validators.required],
         city: ['', Validators.required],
         zipCode: ['', Validators.pattern(/^\d{5}$/)],
       }),
     });
+
   }
 
   validateEmailAsync(
@@ -97,7 +101,7 @@ export class FormRegisterComponent {
   //   }
   // }
 
-  onsubmit() {
+  onSubmit() {
     if (this.formRegister.valid) {
       const user = userMapper(this.formRegister.value);
       this.formRegisterService.addUser(user);
@@ -105,8 +109,10 @@ export class FormRegisterComponent {
         'Successfully registered',
         this.formRegisterService.getUsers()
       );
+      this.showMessage('Register', 'OK');
     } else {
       console.log('INVALID FORM:', this.formRegister.value);
+      this.showMessage('Register', 'The email is registered, try with another email');
     }
   }
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="formRegister" (ngSubmit)="onsubmit()">
+<form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
   <div formGroupName="personalInfo">
     <div>
       <label for="nickName">Nick Name</label>
@@ -124,6 +124,9 @@
     >
       Password must be at least 6 characters
     </div>
+  </div>
+  <div>
+    <app-form-location></app-form-location>
   </div>
   <div formGroupName="addressInfo">
     <div>
