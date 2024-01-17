@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -21,13 +21,15 @@ import { FormLocationComponent } from "../form-location/form-location.component"
   templateUrl: './form-register.component.html',
   styleUrls: ['./form-register.component.css'],
 })
-export class FormRegisterComponent {
+export class FormRegisterComponent implements OnInit{
   formRegister: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private formRegisterService: ServicesFormRegisterService,
     private snackBar: MatSnackBar,
-    private formLocation: FormLocationComponent
+    private formLocation: FormLocationComponent,
+
   ) {
     this.formRegister = this.fb.group({
       personalInfo: this.fb.group({
@@ -43,14 +45,27 @@ export class FormRegisterComponent {
         ],
         password: ['', [Validators.required, Validators.minLength(6)]],
       }),
-      locationInfo:this.formLocation.formulario,
+      locationInfo: this.fb.group({
+        pais: [''],
+        estado: [''],
+        ciudad: [''],
+      }),
       addressInfo: this.fb.group({
         street: ['', Validators.required],
         city: ['', Validators.required],
         zipCode: ['', Validators.pattern(/^\d{5}$/)],
       }),
     });
+    console.log('Initial value of locationInfo:', this.formRegister.get('locationInfo')?.value);
+  }
 
+
+  ngOnInit(): void {
+    // Suscríbete al evento locationDataChange del componente FormLocationComponent
+    this.formLocation.locationDataChange.subscribe(locationForm => {
+      // Actualiza el formulario principal con los datos de ubicación
+      this.formRegister.get('locationInfo')?.patchValue(locationForm.get('locationInfo')?.value);
+    });
   }
 
   validateEmailAsync(
@@ -103,16 +118,30 @@ export class FormRegisterComponent {
 
   onSubmit() {
     if (this.formRegister.valid) {
-      const user = userMapper(this.formRegister.value);
-      this.formRegisterService.addUser(user);
-      console.log(
-        'Successfully registered',
-        this.formRegisterService.getUsers()
-      );
-      this.showMessage('Register', 'OK');
-    } else {
-      console.log('INVALID FORM:', this.formRegister.value);
-      this.showMessage('Register', 'The email is registered, try with another email');
+      const personalInfoValue = this.formRegister.get('personalInfo')?.value;
+      const locationInfoValue = this.formRegister.get('locationInfo')?.value;
+
+      if (personalInfoValue && locationInfoValue) {
+        const user = userMapper({
+          personalInfo: {
+            ...personalInfoValue,
+            ...locationInfoValue,
+          },
+          addressInfo: this.formRegister.get('addressInfo')?.value,
+        });
+
+        this.formRegisterService.addUser(user);
+        console.log('Successfully registered', this.formRegisterService.getUsers());
+        this.showMessage('Register', 'OK');
+      } else {
+        console.log('INVALID FORM:', this.formRegister.value);
+        this.showMessage('Register', 'The email is registered, try with another email');
+      }
     }
+  }
+
+
+  updateLocationData(locationForm: FormGroup) {
+    this.formRegister.get('locationInfo')?.setValue(locationForm.get('locationInfo')?.value);
   }
 }

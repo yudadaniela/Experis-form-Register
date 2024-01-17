@@ -23,7 +23,7 @@ import { FormLocationComponent } from './form/form-location/form-location.compon
     MatSnackBarModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [FormLocationComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

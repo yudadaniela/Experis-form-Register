@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -12,6 +12,8 @@ import {
   styleUrls: ['./form-location.component.css']
 })
 export class FormLocationComponent implements OnInit {
+  @Output() locationDataChange: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  //@Output() locationData = new EventEmitter<any>();
 
   formulario: FormGroup;
 
@@ -67,6 +69,7 @@ export class FormLocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.formulario.get('pais')?.valueChanges.subscribe((pais) => {
       this.estados[pais] = this.obtenerEstadosPorPais(pais);
       this.formulario.get('estado')?.setValue('');
@@ -94,6 +97,7 @@ export class FormLocationComponent implements OnInit {
     return this.ciudades[paisSeleccionado]?.[estadoSeleccionado] || [];
   }
 
+
   avanzar() {
     if(this.pasoActual < 3){
       this.pasoActual ++
@@ -106,7 +110,8 @@ export class FormLocationComponent implements OnInit {
     }
   }
 
-  enviarFormulario() {
-    console.log('Formulario enviado: ', this.formulario.value);
+  emitLocationData() {
+    this.locationDataChange.emit(this.formulario);
   }
+
 }

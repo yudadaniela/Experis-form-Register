@@ -1,4 +1,4 @@
-import { Register, RegisterFormData } from "../models/register"
+import { Register, RegisterFormData } from "../models/register";
 
 export const userMapper = (rawData: RegisterFormData): Register => {
   const names = [rawData.personalInfo.firtName, rawData.personalInfo.secondName, rawData.personalInfo.firtSurtname, rawData.personalInfo.secondSurtname];
@@ -7,8 +7,13 @@ export const userMapper = (rawData: RegisterFormData): Register => {
     fullName: names.join(' '),
     email: rawData.personalInfo.email,
     password: rawData.personalInfo.password,
-    address: rawData.addressInfo
+    location: {
+      pais: rawData.personalInfo.pais,
+      estado: rawData.personalInfo.estado,
+      ciudad: rawData.personalInfo.ciudad,
+    },
+    address: rawData.addressInfo,
   };
-
+  console.log('Mapped User:', user);
   return user;
-}
+};

@@ -126,7 +126,7 @@
     </div>
   </div>
   <div>
-    <app-form-location></app-form-location>
+    <app-form-location (locationDataChange)="updateLocationData($event)"></app-form-location>
   </div>
   <div formGroupName="addressInfo">
     <div>
