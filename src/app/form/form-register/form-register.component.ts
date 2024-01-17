@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -21,8 +21,10 @@ import { FormLocationComponent } from "../form-location/form-location.component"
   templateUrl: './form-register.component.html',
   styleUrls: ['./form-register.component.css'],
 })
-export class FormRegisterComponent {
+export class FormRegisterComponent implements OnInit {
   formRegister: FormGroup;
+  locationData:any={}
+
   constructor(
     private fb: FormBuilder,
     private formRegisterService: ServicesFormRegisterService,
@@ -43,13 +45,24 @@ export class FormRegisterComponent {
         ],
         password: ['', [Validators.required, Validators.minLength(6)]],
       }),
-      locationInfo:this.formLocation.formulario,
+      locationInfo:this.fb.group({
+       paises:[''],
+       estados:[''],
+       ciudades:['']
+      }),
       addressInfo: this.fb.group({
         street: ['', Validators.required],
         city: ['', Validators.required],
         zipCode: ['', Validators.pattern(/^\d{5}$/)],
       }),
     });
+
+  }
+  ngOnInit(): void {
+    this.formRegister.get(this.formLocation.paises)?.valueChanges.subscribe((value)=>{
+     console.log('country change',value);
+     
+    })
 
   }
 
@@ -103,7 +116,11 @@ export class FormRegisterComponent {
 
   onSubmit() {
     if (this.formRegister.valid) {
-      const user = userMapper(this.formRegister.value);
+      const user = userMapper({ 
+        personalInfo:this.formRegister.get('personalInfo')?.value,
+        locationInfo:this.locationData,
+        address:this.formRegister.get('addressInfo')?.value
+      });
       this.formRegisterService.addUser(user);
       console.log(
         'Successfully registered',

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   FormBuilder,
   Validators,
+ 
 } from '@angular/forms';
 
 @Component({
@@ -12,6 +13,8 @@ import {
   styleUrls: ['./form-location.component.css']
 })
 export class FormLocationComponent implements OnInit {
+  
+  @Output() locationData=  new EventEmitter<any>();
 
   formulario: FormGroup;
 
@@ -81,6 +84,9 @@ export class FormLocationComponent implements OnInit {
     const paisPredeterminado = this.paises[0];
     this.estados[paisPredeterminado] =
       this.obtenerEstadosPorPais(paisPredeterminado);
+
+    
+      this.locationData.emit(this.formulario.value)
   }
 
   obtenerEstadosPorPais(pais: string): string[] {
@@ -106,7 +112,7 @@ export class FormLocationComponent implements OnInit {
     }
   }
 
-  enviarFormulario() {
-    console.log('Formulario enviado: ', this.formulario.value);
-  }
+  // enviarFormulario() {
+  //   console.log('Formulario enviado: ', this.formulario.value);
+  // }
 }

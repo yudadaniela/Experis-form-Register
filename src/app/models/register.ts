@@ -4,11 +4,18 @@ export interface Register {
   email: string;
   password: string;
   address: AddressInfo
+  registerLocatiInfo:RegisterLocationInfo
 };
 
+export interface RegisterLocationInfo{
+  paises:string;
+  estados:string;
+  ciudades:string
+}
 export interface RegisterFormData {
   personalInfo: UserPersonalInfo,
   addressInfo: AddressInfo
+  registerLocatiInfo:RegisterLocationInfo
 };
 
 export interface UserPersonalInfo {
