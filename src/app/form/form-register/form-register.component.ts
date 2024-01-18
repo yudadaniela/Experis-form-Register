@@ -32,6 +32,7 @@ export class FormRegisterComponent implements OnInit{
 
   ) {
     this.formRegister = this.fb.group({
+
       personalInfo: this.fb.group({
         nickName: ['', [Validators.required, Validators.minLength(4)]],
         firtName: ['', [Validators.required, Validators.minLength(4)]],
@@ -56,17 +57,20 @@ export class FormRegisterComponent implements OnInit{
         zipCode: ['', Validators.pattern(/^\d{5}$/)],
       }),
     });
-    console.log('Initial value of locationInfo:', this.formRegister.get('locationInfo')?.value);
   }
-
 
   ngOnInit(): void {
-    // Suscríbete al evento locationDataChange del componente FormLocationComponent
-    this.formLocation.locationDataChange.subscribe(locationForm => {
+    this.formLocation.locationDataChange.subscribe(locationInfo => {
+      console.log('Evento locationDataChange recibido:', locationInfo);
+
       // Actualiza el formulario principal con los datos de ubicación
-      this.formRegister.get('locationInfo')?.patchValue(locationForm.get('locationInfo')?.value);
+      this.formRegister.get('locationInfo')?.patchValue(locationInfo);
+
+      // Agrega registros de consola para verificar la estructura del formulario principal
+      console.log('Estructura del formulario principal:', this.formRegister.value);
     });
   }
+
 
   validateEmailAsync(
     control: AbstractControl
@@ -141,7 +145,17 @@ export class FormRegisterComponent implements OnInit{
   }
 
 
-  updateLocationData(locationForm: FormGroup) {
-    this.formRegister.get('locationInfo')?.setValue(locationForm.get('locationInfo')?.value);
+  // updateLocationData(locationForm: FormGroup) {
+  //   console.log('Datos de ubicación recibidos:', locationForm.value);
+  //   console.log('Estado actual del formulario:', this.formRegister.value);
+  //   this.formRegister.get('locationInfo')?.patchValue(locationForm.get('locationInfo')?.value);
+  // }
+  updateLocationData(locationInfo: any) {
+    console.log('Datos de ubicación recibidos:', locationInfo);
+    this.formRegister.get('locationInfo')?.setValue(locationInfo);
+    this.formRegister.updateValueAndValidity(); // Forzar actualización
   }
+
+
+
 }
