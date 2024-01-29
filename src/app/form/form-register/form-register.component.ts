@@ -71,7 +71,6 @@ export class FormRegisterComponent implements OnInit{
     });
   }
 
-
   validateEmailAsync(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {

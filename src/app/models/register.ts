@@ -33,3 +33,8 @@ export interface AddressInfo {
   city: string;
   zipCode: string;
 }
+
+export interface User{
+  email: string;
+  password: string;
+}

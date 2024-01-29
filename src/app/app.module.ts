@@ -8,12 +8,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormLocationComponent } from './form/form-location/form-location.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ProductComponent } from './pages/product/product.component';
+import { FormCreationProductsComponent } from './form/form-creation-products/form-creation-products.component';
+import { RouterModule } from '@angular/router';
+import { FormDetailProductsComponent } from './form/form-detail-products/form-detail-products.component';
+import { LoginFormComponent } from './form/login-form/login-form.component';
+import { HeaderComponent } from './pages/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormRegisterComponent,
-    FormLocationComponent
+    FormLocationComponent,
+    HomePageComponent,
+    ProductComponent,
+    FormCreationProductsComponent,
+    FormDetailProductsComponent,
+    LoginFormComponent,
+    HeaderComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -21,9 +36,11 @@ import { FormLocationComponent } from './form/form-location/form-location.compon
     ReactiveFormsModule,
     FormsModule,
     MatSnackBarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule,
+    HttpClientModule
   ],
-  providers: [FormLocationComponent],
+  providers: [FormLocationComponent, FormDetailProductsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
