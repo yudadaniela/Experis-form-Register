@@ -45,6 +45,7 @@ export class FormRegisterComponent implements OnInit{
           [this.validateEmailAsync.bind(this)]
         ],
         password: ['', [Validators.required, Validators.minLength(6)]],
+        role:'user',
       }),
       locationInfo: this.fb.group({
         pais: [''],

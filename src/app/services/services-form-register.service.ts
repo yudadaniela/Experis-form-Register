@@ -8,10 +8,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ServicesFormRegisterService {
   private users: Register[] = [
     {
-      nickName: 'jhonny',
-      fullName: 'John Doe',
+      nickName: 'yuda',
+      fullName: 'yurani nieto',
       email: 'yudadaniela@hotmail.com',
       password: '123456',
+      role:'admin',
       location: {
         pais: 'Colombia',
         estado: 'Cundinamarca',
@@ -24,10 +25,28 @@ export class ServicesFormRegisterService {
       },
     },
     {
-      nickName: 'jhonna',
+      nickName: 'nicas',
       fullName: 'johana',
       email: 'ynieto2@slb.com',
       password: '123456',
+      role:'user',
+      location: {
+        pais: 'Colombia',
+        estado: 'Cundinamarca',
+        ciudad: 'Bogotá',
+      },
+      address: {
+        street: 'street1',
+        city: 'city1',
+        zipCode: '12345',
+      },
+    },
+    {
+      nickName: 'jhonny',
+      fullName: 'John Doe',
+      email: 'biancaspri@hotmail.com',
+      password: '123456',
+      role:'invite',
       location: {
         pais: 'Colombia',
         estado: 'Cundinamarca',
@@ -108,7 +127,21 @@ export class ServicesFormRegisterService {
 
     //return this.isLoggedIn;
   }
-  user() {
+  getUser() {
+    console.log(this.currentUser);
     return this.currentUser;
   }
+  isAdmi():boolean|null{
+    const user=this.getUser()
+    return user && user.role==='admin'
+  }
+  isUser():boolean|null{
+    const user=this.getUser()
+    return user && user.role==='user'
+  }
+  // isInvite():boolean|null{
+  //   const user=this.getUser()
+  //   return user && user.role==='invite'
+  // }
+
 }

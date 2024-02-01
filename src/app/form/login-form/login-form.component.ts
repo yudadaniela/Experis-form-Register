@@ -28,14 +28,11 @@ export class LoginFormComponent {
     
     const login=this.serviceRegister.login(email, password)
     console.log(login);
-    
     if(login){
     console.log('se hizo login'); 
-    
+    this.router.navigate(['/home'])
   } else{
     console.log('no se ha registrado');
- 
-    
     this.router.navigate(['/register'])
   } 
   }

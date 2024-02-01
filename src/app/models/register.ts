@@ -3,6 +3,7 @@ export interface Register {
   fullName: string;
   email: string;
   password: string;
+  role:string;
   location: Location; // Agrega la propiedad location
   address: AddressInfo;
 }
@@ -20,6 +21,7 @@ export interface UserPersonalInfo {
   secondSurtname: string;
   email: string;
   password: string;
+  role:string;
 }
 
 export interface Location {
@@ -35,6 +37,9 @@ export interface AddressInfo {
 }
 
 export interface User{
+  nickName: string;
+  fullName: string;
   email: string;
   password: string;
+  role:string;
 }

@@ -23,7 +23,7 @@ export class HeaderComponent {
     return this.registerService.logout() 
   }
   currentUser(){
-    this.user=this.registerService.user()
+    this.user=this.registerService.getUser()
     return this.user
   }
 }

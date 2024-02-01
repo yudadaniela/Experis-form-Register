@@ -14,9 +14,11 @@ class PermissionService {
     
   }
   canActivate(next:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean |UrlTree{
-     if(this.registerService.ifAuthentication()){
+     if(this.registerService.ifAuthentication()&&this.registerService.isAdmi()){
       console.log('acceso activado');
       return true
+     }if(this.registerService.isUser()){
+      return this.router.createUrlTree(['/home'])
      }else{
       return this.router.createUrlTree(['/register'])
      }

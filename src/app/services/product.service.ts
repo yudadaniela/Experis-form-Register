@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
+import { ServicesFormRegisterService } from './services-form-register.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -33,18 +35,36 @@ export class ProductService {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private registerService:ServicesFormRegisterService,
+    private route:Router
+  ) {}
 
   obtenerProductos() {
-    return this.PRODUCTOS;
+     if(!this.registerService.ifAuthentication()){
+       this.route.navigate(['/login']);  
+     }
+     return this.PRODUCTOS;
   }
 
   obtenerProductoPorId(id: number) {
+    if(!this.registerService.ifAuthentication()){
+      this.route.navigate(['/login']);  
+    }
     return this.PRODUCTOS.find((producto) => producto.id === id);
   }
 
   crearProductos(product: Product) {
+    if(!this.registerService.isAdmi()){
+      this.route.navigate(['']);  
+    }
     this.PRODUCTOS.push(product);
     return;
+  }
+  editarProductos(product:Product){
+
+  }
+  eliminarProducto(id:number){
+
   }
 }
