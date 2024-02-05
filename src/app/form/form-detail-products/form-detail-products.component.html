@@ -1,0 +1,27 @@
+<form action="" [formGroup]="detailProductForm" >
+    <div class="form-input">
+        <label for="category">category</label>
+        <input type="text" id="category" formControlName="category">
+    </div>
+    <div
+    *ngIf="detailProductForm.get('category')?.hasError('required')">
+       Category is required
+    </div>
+    <div class="form-input">
+        <label for="image">Imagenes</label>
+        <input type="text" id="image" formControlName="image">
+    </div>
+    <div
+    *ngIf="detailProductForm.get('image')?.hasError('required')">
+        Image is required
+    </div>
+    <div class="form-input">
+        <label for="price">Price</label>
+        <input type="text" id="price" formControlName="price">
+    </div>
+    <div
+    *ngIf="detailProductForm.get('price')?.hasError('required')">
+        Price is required
+    </div>
+    
+</form>

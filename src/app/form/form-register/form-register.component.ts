@@ -21,17 +21,20 @@ import { FormLocationComponent } from "../form-location/form-location.component"
   templateUrl: './form-register.component.html',
   styleUrls: ['./form-register.component.css'],
 })
-export class FormRegisterComponent implements OnInit {
+
+export class FormRegisterComponent implements OnInit{
   formRegister: FormGroup;
-  locationData:any={}
+
 
   constructor(
     private fb: FormBuilder,
     private formRegisterService: ServicesFormRegisterService,
     private snackBar: MatSnackBar,
-    private formLocation: FormLocationComponent
+    private formLocation: FormLocationComponent,
+
   ) {
     this.formRegister = this.fb.group({
+
       personalInfo: this.fb.group({
         nickName: ['', [Validators.required, Validators.minLength(4)]],
         firtName: ['', [Validators.required, Validators.minLength(4)]],
@@ -41,22 +44,35 @@ export class FormRegisterComponent implements OnInit {
         email: [
           '',
           [Validators.required, Validators.email],
-          [this.validateEmailAsync.bind(this)]
+          //[this.validateEmailAsync.bind(this)]
         ],
         password: ['', [Validators.required, Validators.minLength(6)]],
+        role:'user',
       }),
-      locationInfo:this.fb.group({
-       paises:[''],
-       estados:[''],
-       ciudades:['']
+      locationInfo: this.fb.group({
+        pais: [''],
+        estado: [''],
+        ciudad: [''],
       }),
+
       addressInfo: this.fb.group({
         street: ['', Validators.required],
         city: ['', Validators.required],
         zipCode: ['', Validators.pattern(/^\d{5}$/)],
       }),
     });
+  }
 
+  ngOnInit(): void {
+    this.formLocation.locationDataChange.subscribe(locationInfo => {
+      console.log('Evento locationDataChange recibido:', locationInfo);
+
+      // Actualiza el formulario principal con los datos de ubicación
+      this.formRegister.get('locationInfo')?.patchValue(locationInfo);
+
+      // Agrega registros de consola para verificar la estructura del formulario principal
+      console.log('Estructura del formulario principal:', this.formRegister.value);
+    });
   }
   ngOnInit(): void {
     this.formRegister.get(this.formLocation.paises)?.valueChanges.subscribe((value)=>{
@@ -116,20 +132,42 @@ export class FormRegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.formRegister.valid) {
-      const user = userMapper({ 
-        personalInfo:this.formRegister.get('personalInfo')?.value,
-        locationInfo:this.locationData,
-        address:this.formRegister.get('addressInfo')?.value
-      });
-      this.formRegisterService.addUser(user);
-      console.log(
-        'Successfully registered',
-        this.formRegisterService.getUsers()
-      );
-      this.showMessage('Register', 'OK');
-    } else {
-      console.log('INVALID FORM:', this.formRegister.value);
-      this.showMessage('Register', 'The email is registered, try with another email');
+
+      const personalInfoValue = this.formRegister.get('personalInfo')?.value;
+      const locationInfoValue = this.formRegister.get('locationInfo')?.value;
+
+      if (personalInfoValue && locationInfoValue) {
+        const user = userMapper({
+          personalInfo: {
+            ...personalInfoValue,
+            ...locationInfoValue,
+          },
+          addressInfo: this.formRegister.get('addressInfo')?.value,
+        });
+
+        this.formRegisterService.addUser(user);
+        console.log('Successfully registered', this.formRegisterService.getUsers());
+        this.showMessage('Register', 'OK');
+      } else {
+        console.log('INVALID FORM:', this.formRegister.value);
+        this.showMessage('Register', 'The email is registered, try with another email');
+      }
+
     }
   }
+
+
+  // updateLocationData(locationForm: FormGroup) {
+  //   console.log('Datos de ubicación recibidos:', locationForm.value);
+  //   console.log('Estado actual del formulario:', this.formRegister.value);
+  //   this.formRegister.get('locationInfo')?.patchValue(locationForm.get('locationInfo')?.value);
+  // }
+  updateLocationData(locationInfo: any) {
+    console.log('Datos de ubicación recibidos:', locationInfo);
+    this.formRegister.get('locationInfo')?.setValue(locationInfo);
+    this.formRegister.updateValueAndValidity(); // Forzar actualización
+  }
+
+
+
 }

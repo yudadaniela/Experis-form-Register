@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
+import { Component, EventEmitter, OnInit, Output, ChangeDetectorRef } from '@angular/core';
+
 import {
   FormControl,
   FormGroup,
@@ -13,8 +15,10 @@ import {
   styleUrls: ['./form-location.component.css']
 })
 export class FormLocationComponent implements OnInit {
-  
-  @Output() locationData=  new EventEmitter<any>();
+
+  @Output() locationDataChange: EventEmitter<any> = new EventEmitter<any>();
+  //@Output() locationData = new EventEmitter<any>();
+
 
   formulario: FormGroup;
 
@@ -61,7 +65,7 @@ export class FormLocationComponent implements OnInit {
 
   pasoActual: number = 1;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {
     this.formulario = this.fb.group({
       pais: ['', [Validators.required]],
       estado: ['', [Validators.required]],
@@ -70,23 +74,38 @@ export class FormLocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Obtener valores predeterminados
+    const paisPredeterminado = '';
+    const estadoPredeterminado = '';
+    const ciudadPredeterminada = '';
+
+    // Inicializar el formulario con los valores predeterminados
+    this.formulario = this.fb.group({
+      pais: [paisPredeterminado, [Validators.required]],
+      estado: [estadoPredeterminado, [Validators.required]],
+      ciudad: [ciudadPredeterminada, [Validators.required]],
+    });
+
+    console.log('Formulario inicial:', this.formulario.value);
+
+    // Suscripciones a cambios
+    this.formulario.valueChanges.subscribe(() => {
+      this.emitLocationData();
+    });
+
     this.formulario.get('pais')?.valueChanges.subscribe((pais) => {
+      console.log('Cambios en pais:', pais);
       this.estados[pais] = this.obtenerEstadosPorPais(pais);
       this.formulario.get('estado')?.setValue('');
       this.formulario.get('ciudad')?.setValue('');
+
     });
 
     this.formulario.get('estado')?.valueChanges.subscribe((estado) => {
-      // this.estados = this.obtenerCiudadesPorEstado(estado)
+      console.log('Cambios en estado:', estado);
       this.formulario.get('ciudad')?.setValue('');
     });
 
-    const paisPredeterminado = this.paises[0];
-    this.estados[paisPredeterminado] =
-      this.obtenerEstadosPorPais(paisPredeterminado);
-
-    
-      this.locationData.emit(this.formulario.value)
   }
 
   obtenerEstadosPorPais(pais: string): string[] {
@@ -100,6 +119,7 @@ export class FormLocationComponent implements OnInit {
     return this.ciudades[paisSeleccionado]?.[estadoSeleccionado] || [];
   }
 
+
   avanzar() {
     if(this.pasoActual < 3){
       this.pasoActual ++
@@ -112,7 +132,23 @@ export class FormLocationComponent implements OnInit {
     }
   }
 
-  // enviarFormulario() {
-  //   console.log('Formulario enviado: ', this.formulario.value);
+
+  // emitLocationData() {
+  //   console.log('Emitiendo evento locationDataChange:', this.formulario.value.locationInfo);
+  //   setTimeout(() => {
+  //     this.locationDataChange.emit(this.formulario);
+  //   }, 0);
   // }
+
+  emitLocationData() {
+    const locationInfo = {
+      pais: this.formulario.value.pais,
+      estado: this.formulario.value.estado,
+      ciudad: this.formulario.value.ciudad,
+    };
+
+    console.log('Datos de ubicación a emitir:', locationInfo);
+    this.locationDataChange.emit(locationInfo);
+  }
+
 }

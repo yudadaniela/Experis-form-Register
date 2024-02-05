@@ -3,10 +3,10 @@
     margin: 0;
 }
 h4{
-    padding: 10px 10px 0px 40px ;  
+    padding: 20px; 
+    
 }
 form{
-    
     border-radius: 5px;
     box-shadow: 0 2px 5px (10, 10, 10, 0.2);
     padding: 20px;
@@ -14,7 +14,8 @@ form{
 }
 .form-input{
   margin:10px 30px;
-  text-align: left;    
+  text-align: left;
+    
 }
 label{
     display: block;
@@ -22,7 +23,4 @@ label{
 .button{
     text-align: center;
     justify-content: center;
-}
-.required{
-    color:red
 }

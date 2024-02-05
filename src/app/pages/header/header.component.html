@@ -1,0 +1,7 @@
+<div class="header">
+    <h2>Home</h2>
+    <a [routerLink]="['/createProduct']">create product</a>
+    <!-- <div><a [routerLink]="['/register']">Register</a></div> -->
+     <h5 *ngIf="currentUser()">{{ user?.nickName}}</h5> 
+    <button (click)="logOut()">Log-Out</button>
+  </div>

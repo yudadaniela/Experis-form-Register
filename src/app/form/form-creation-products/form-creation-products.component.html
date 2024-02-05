@@ -1,0 +1,32 @@
+<div>
+    <h4>Create Product</h4>
+    <form action="" [formGroup]="creationProductForm" (ngSubmit)="onSubmit()">
+        <div formGroupName="createProduct">
+            <div class="form-input">
+                <label for="name">Product</label>
+                <input type="text" id="name" formControlName="name">
+            </div>
+            <div
+            *ngIf="creationProductForm.get('createProduc.name')?.hasError('required')">
+                Product name is required
+            </div>
+            <div class="form-input">
+                <label for="description">Description</label>
+                <input type="text" id="description" formControlName="description">
+            </div>
+            <div
+            *ngIf="creationProductForm.get('createProduc.description')?.hasError('required')">
+                Description is required
+            </div>
+        
+        </div>
+        <div class="form-input">
+            <app-form-detail-products (detailsProductChange)="updateProduct($event)">
+            </app-form-detail-products>
+        </div>
+             
+      
+        <button type="submit">enviar</button>
+    </form>
+</div>
+
