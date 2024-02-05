@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ServicesFormRegisterService } from "../../services/services-form-register.service";
 import { Router } from '@angular/router';
@@ -19,22 +19,25 @@ export class LoginFormComponent {
    password:['',[Validators.required]]
  })
  }
-  onSubmit(){
+   onSubmit(){
     const email=this.loginForm.get('email')?.value
-    console.log(email);
+    //console.log(email);
     
     const password=this.loginForm.get('password')?.value
-    console.log(password);
+    //console.log(password);
     
-    const login=this.serviceRegister.login(email, password)
-    console.log(login);
-    if(login){
-    console.log('se hizo login'); 
-    this.router.navigate(['/home'])
-  } else{
-    console.log('no se ha registrado');
-    this.router.navigate(['/register'])
-  } 
+    console.log(this.serviceRegister.login(email, password));
+    this.serviceRegister.login(email, password).subscribe((login)=>{
+      console.log(login);
+      if(login){
+      console.log('se hizo login'); 
+      this.router.navigate(['/home'])
+    } else{
+      console.log('no se ha registrado');
+      this.router.navigate(['/register'])
+    }
+    })
+     
   }
 
 }

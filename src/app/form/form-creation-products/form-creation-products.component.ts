@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ProductService } from "../../services/product.service";
-import  {v4 as uuidv4}  from "uuid";
 import { Router } from '@angular/router';
 import { FormDetailProductsComponent } from "../form-detail-products/form-detail-products.component";
 
@@ -11,7 +10,10 @@ import { FormDetailProductsComponent } from "../form-detail-products/form-detail
   styleUrls: ['./form-creation-products.component.css']
 })
 export class FormCreationProductsComponent implements OnInit {
+  @Input() isEdit:boolean=false;
+  @Input() product:any={}
   creationProductForm:FormGroup
+
   constructor(
    private fb:FormBuilder,
    private productService:ProductService,
@@ -20,8 +22,8 @@ export class FormCreationProductsComponent implements OnInit {
    
    ){
     this.creationProductForm=this.fb.group({
-      createProduc:this.fb.group({
-        id:this.generateId(),
+      createProduct:this.fb.group({
+        //id:this.generateId(),
         name:['', Validators.required],
         description:['', Validators.required],
       }),
@@ -37,12 +39,31 @@ export class FormCreationProductsComponent implements OnInit {
    this.detailForm.detailsProductChange.subscribe((detailProductForm)=>{
    this.creationProductForm.get('detailProductForm')?.patchValue(detailProductForm)
    })
+   if(this.isEdit){
+    this.loadProductData()
+   }
   }
-
+  private loadProductData(){
+    this.productService.obtenerProductoPorId(this.product.id).subscribe((poductDetail)=>{
+      console.log(poductDetail);
+      this.creationProductForm.patchValue(poductDetail)
+    })
+  }
    onSubmit(){
     const formProduct=this.creationProductForm.value
-    this.productService.crearProductos(formProduct)
-    console.log(this.productService.obtenerProductos());
+    if(this.isEdit){
+      this.productService.editarProductos(this.product.id, formProduct).subscribe(()=>{
+        console.log('product update');
+        this.router.navigate(['/home'])
+      })
+    }else{
+      this.productService.crearProductos(formProduct).subscribe(()=>{
+        console.log('producto created')
+        this.router.navigate(['/home'])
+      })
+    }
+    this.creationProductForm.reset()
+    //console.log(this.productService.obtenerProductos());
     //this.router.navigate(['/home'])
    }
    generateId(){

@@ -1,7 +1,7 @@
 <div>
     <h4>Create Product</h4>
     <form action="" [formGroup]="creationProductForm" (ngSubmit)="onSubmit()">
-        <div formGroupName="createProduc">
+        <div formGroupName="createProduct">
             <div class="form-input">
                 <label for="name">Product</label>
                 <input type="text" id="name" formControlName="name">
@@ -21,7 +21,8 @@
         
         </div>
         <div class="form-input">
-            <app-form-detail-products (detailsProductChange)="updateProduct($event)"></app-form-detail-products>
+            <app-form-detail-products (detailsProductChange)="updateProduct($event)">
+            </app-form-detail-products>
         </div>
              
       

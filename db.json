@@ -1,0 +1,79 @@
+{
+  "users": [
+    {
+      "nickName": "yuda",
+      "fullName": "yurani nieto",
+      "email": "yudadaniela@hotmail.com",
+      "password": "123456",
+      "role": "admin",
+      "location": {
+        "pais": "Colombia",
+        "estado": "Cundinamarca",
+        "ciudad": "Bogotá"
+      },
+      "address": {
+        "street": "street 1",
+        "city": "city 1",
+        "zipCode": "12345"
+      },
+      "id": "65d4"
+    },
+    {
+      "nickName": "nicas",
+      "fullName": "johana",
+      "email": "ynieto2@slb.com",
+      "password": "123456",
+      "role": "user",
+      "location": {
+        "pais": "Colombia",
+        "estado": "Cundinamarca",
+        "ciudad": "Bogotá"
+      },
+      "address": {
+        "street": "street1",
+        "city": "city1",
+        "zipCode": "12345"
+      },
+      "id": "ea3b"
+    }
+    
+  ],
+  "product": [
+    {
+      "createProduct": {
+        "name": "camisa de polo ",
+        "description": "camisa de polo azullll"
+      },
+      "detailProductForm": {
+        "category": "",
+        "image": "",
+        "price": ""
+      },
+      "id": "3"
+    },
+    {
+      "createProduct": {
+        "name": "camisa de polo ",
+        "description": "camisa de polo azullll"
+      },
+      "detailProductForm": {
+        "category": "hombre ",
+        "image": "",
+        "price": "1234"
+      },
+      "id": "ad5d"
+    },
+    {
+      "id": "4a9b",
+      "createProduct": {
+        "name": "gorra para sol",
+        "description": "gorra para sol ved"
+      },
+      "detailProductForm": {
+        "category": "mujer",
+        "image": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQBDQMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAAGAAIDBAUBB//EAD8QAAIBAwMBBgQEAwcDBAMAAAECAwAEEQUSITEGEyJBUWEUcYGhIzJCkRVSsQcWM2LB0fAkcuFTgqKyNEOD/8QAGQEAAwEBAQAAAAAAAAAAAAAAAQIDAAQF/8QAIhEAAgIBBAMBAQEAAAAAAAAAAAECEQMSEyExBEFRFGEi/9oADAMBAAIRAxEAPwBklncr+ZG+VchsruU4jgdj6Yo+uGtu9a4jmcOR02YFQ/HBY8SMzDzw20n9qO7L4Daj9AkGS2kwx2v7dac807/mJb60SXF1pqcLa2//ALU+/NSWGsabBKO9ijKeeE5Hyoubq6AoerBTxg4I+lPWEsM7PtRhd63BNIHtYo9g4G5BmnR9oIwpSWzgY/8AaBSPNKuh1gX0HbTSbq4DGGByqjOdvFaEehXIjLtBuKn8nnW1/eaJYCsURjPHKY4qS27Rx5PfGVifPjH7CuefkZPhWOBGdaaI96wRLcW5H6mBINWZeykiQF1uYt2MkFcfethNZt5DhJITkeZ21xtQSRW7q5iiHXgZyPrUF5OSxnh/gC3JeGQq2zjjioRPg48NE17pkWoJ3vx5Dk8B9uKoRaJZhX7++jMnIwMgA11Q8iLQjwfDNEi/q20u9tgwJRm+tadroVm74lvkx7H/AHq0dJ0iBwofvTjJJfj7Ud+K4MsLIrC60Ipie0mDfzBs1YurTTJFjls5sAn/AA3xuFdMNjbsDDbqQOT465BFb",
+        "price": "1234"
+      }
+    }
+  ]
+}

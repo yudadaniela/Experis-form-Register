@@ -2,15 +2,25 @@
   <h2>Home</h2>
   <a [routerLink]="['/createProduct']">create product</a>
    <div><a [routerLink]="['/register']">Register</a></div> -->
-  <!--<h5 *ngIf="currentUser()">{{ user?.email }}</h5>
+<!--<h5 *ngIf="currentUser()">{{ user?.email }}</h5>
   <button (click)="logout()">Log-Out</button>
 </div> -->
 
-  <ul>
-      <li *ngFor="let producto of productos">
-        <h2>{{ producto.name }}</h2>
-        <!-- <img [src]="producto.image" alt=""> -->
-        <a [routerLink]="['/producto', producto.id]">Ir a {{ producto.name }}</a>
-      </li>
-  </ul>
-
+<ul>
+  <li *ngFor="let product of products">
+    <h2>{{ product.createProduct.name }}</h2>
+    <!-- <img [src]="producto.image" alt=""> -->
+    <a [routerLink]="['/producto', product.id]"
+      >Ir a {{ product.createProduct.name }}</a
+    >
+    <div *ngIf="currentUser()" >
+      <button (click)="editProduct(product)">edit</button>
+      <button (click)="deleteProduct(product.id)">delete</button>
+    </div>
+    
+  </li>
+</ul>
+<div *ngIf="isEditing">
+  <app-form-creation-products [isEdit]="isEditing" [product]="selectedProduct">
+  </app-form-creation-products>
+</div>

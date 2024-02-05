@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
 import { ServicesFormRegisterService } from './services-form-register.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -34,37 +36,59 @@ export class ProductService {
       category: 'mens clothing',
     },
   ];
-
+  private apiUrl='http://localhost:3000/productt'
   constructor(
     private registerService:ServicesFormRegisterService,
-    private route:Router
+    private route:Router,
+    private http:HttpClient
+
   ) {}
 
   obtenerProductos() {
      if(!this.registerService.ifAuthentication()){
        this.route.navigate(['/login']);  
      }
-     return this.PRODUCTOS;
+     return this.http.get<any[]>(this.apiUrl)
+     .pipe(catchError((error)=>{
+      return throwError(()=>{error})
+    }))
   }
 
   obtenerProductoPorId(id: number) {
     if(!this.registerService.ifAuthentication()){
       this.route.navigate(['/login']);  
     }
-    return this.PRODUCTOS.find((producto) => producto.id === id);
+    return this.http.get<any>(`${this.apiUrl}/${id}`)
+    .pipe(catchError((error)=>{
+      return throwError(()=>{error})
+    }))
   }
 
   crearProductos(product: Product) {
     if(!this.registerService.isAdmi()){
       this.route.navigate(['']);  
     }
-    this.PRODUCTOS.push(product);
-    return;
+    return this.http.post<any>(this.apiUrl, product)
+    .pipe(catchError((error)=>{
+      return throwError(()=>{error})
+    }))
   }
-  editarProductos(product:Product){
-
+  editarProductos(id:number, product:Product):Observable<any>{
+    if(!this.registerService.isAdmi()){
+      this.route.navigate(['']);  
+    }
+    return this.http.put<any>(`${this.apiUrl}/${id}`, product)
+    .pipe(catchError((error)=>{
+      return throwError(()=>{error})
+    }))
   }
   eliminarProducto(id:number){
-
+    if(!this.registerService.isAdmi()){
+      this.route.navigate(['']);  
+    }
+    return this.http.delete<any>(`${this.apiUrl}/${id}`)
+    .pipe(catchError((error)=>{
+      return throwError(()=>{error})
+    }))
   }
 }

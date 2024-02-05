@@ -5,10 +5,9 @@ import { ProductService } from '../../services/product.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
-
   idProducto!: number;
   producto: any;
 
@@ -19,11 +18,13 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.idProducto =+ params['id'];
+      this.idProducto = +params['id'];
       console.log(this.idProducto);
-      
-      this.producto = this.productoService.obtenerProductoPorId(this.idProducto)
+      this.productoService
+        .obtenerProductoPorId(this.idProducto)
+        .subscribe((res) => {
+          this.producto = res;
+        });
     });
   }
-
 }

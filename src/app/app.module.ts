@@ -15,7 +15,8 @@ import { RouterModule } from '@angular/router';
 import { FormDetailProductsComponent } from './form/form-detail-products/form-detail-products.component';
 import { LoginFormComponent } from './form/login-form/login-form.component';
 import { HeaderComponent } from './pages/header/header.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     HttpClientModule
   ],
-  providers: [FormLocationComponent, FormDetailProductsComponent],
+  providers: [FormLocationComponent, FormDetailProductsComponent,
+  {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
