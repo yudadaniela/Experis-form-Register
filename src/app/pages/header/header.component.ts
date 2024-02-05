@@ -17,7 +17,7 @@ export class HeaderComponent {
   ){
 
   }
-  logout(){
+  logOut(){
     console.log(this.registerService.logout());
     this.router.navigate([''])
     return this.registerService.logout() 

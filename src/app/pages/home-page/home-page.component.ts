@@ -43,7 +43,7 @@ export class HomePageComponent implements OnInit {
     console.log(this.registerService.logout());
     return this.registerService.logout();
   }
-  currentUser() {
+  admi() {
     return this.registerService.isAdmi();
   }
 }

@@ -13,7 +13,7 @@
     <a [routerLink]="['/producto', product.id]"
       >Ir a {{ product.createProduct.name }}</a
     >
-    <div *ngIf="currentUser()" >
+    <div *ngIf="admi()" >
       <button (click)="editProduct(product)">edit</button>
       <button (click)="deleteProduct(product.id)">delete</button>
     </div>
