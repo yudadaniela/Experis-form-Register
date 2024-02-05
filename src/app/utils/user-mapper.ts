@@ -7,6 +7,7 @@ export const userMapper = (rawData: RegisterFormData): Register => {
     fullName: names.join(' '),
     email: rawData.personalInfo.email,
     password: rawData.personalInfo.password,
+
     role:rawData.personalInfo.role,
     location: {
       pais: rawData.personalInfo.pais,
@@ -14,6 +15,7 @@ export const userMapper = (rawData: RegisterFormData): Register => {
       ciudad: rawData.personalInfo.ciudad,
     },
     address: rawData.addressInfo,
+
   };
   console.log('Mapped User:', user);
   return user;

@@ -8,10 +8,18 @@ export interface Register {
   address: AddressInfo;
 }
 
+
+export interface RegisterLocationInfo{
+  paises:string;
+  estados:string;
+  ciudades:string
+}
 export interface RegisterFormData {
+
   personalInfo: UserPersonalInfo & Location; // Corregimos aquí
   addressInfo: AddressInfo;
 }
+
 
 export interface UserPersonalInfo {
   nickName: string;

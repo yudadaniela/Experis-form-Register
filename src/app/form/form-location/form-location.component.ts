@@ -1,9 +1,12 @@
+
 import { Component, EventEmitter, OnInit, Output, ChangeDetectorRef } from '@angular/core';
+
 import {
   FormControl,
   FormGroup,
   FormBuilder,
   Validators,
+ 
 } from '@angular/forms';
 
 @Component({
@@ -12,8 +15,10 @@ import {
   styleUrls: ['./form-location.component.css']
 })
 export class FormLocationComponent implements OnInit {
+
   @Output() locationDataChange: EventEmitter<any> = new EventEmitter<any>();
   //@Output() locationData = new EventEmitter<any>();
+
 
   formulario: FormGroup;
 
@@ -100,6 +105,7 @@ export class FormLocationComponent implements OnInit {
       console.log('Cambios en estado:', estado);
       this.formulario.get('ciudad')?.setValue('');
     });
+
   }
 
   obtenerEstadosPorPais(pais: string): string[] {
@@ -126,6 +132,7 @@ export class FormLocationComponent implements OnInit {
     }
   }
 
+
   // emitLocationData() {
   //   console.log('Emitiendo evento locationDataChange:', this.formulario.value.locationInfo);
   //   setTimeout(() => {
@@ -143,4 +150,5 @@ export class FormLocationComponent implements OnInit {
     console.log('Datos de ubicación a emitir:', locationInfo);
     this.locationDataChange.emit(locationInfo);
   }
+
 }

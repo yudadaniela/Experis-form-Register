@@ -41,8 +41,10 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     RouterModule,
     HttpClientModule
   ],
+
   providers: [FormLocationComponent, FormDetailProductsComponent,
   {provide:HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true}],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

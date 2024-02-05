@@ -21,8 +21,10 @@ import { FormLocationComponent } from "../form-location/form-location.component"
   templateUrl: './form-register.component.html',
   styleUrls: ['./form-register.component.css'],
 })
+
 export class FormRegisterComponent implements OnInit{
   formRegister: FormGroup;
+
 
   constructor(
     private fb: FormBuilder,
@@ -52,6 +54,7 @@ export class FormRegisterComponent implements OnInit{
         estado: [''],
         ciudad: [''],
       }),
+
       addressInfo: this.fb.group({
         street: ['', Validators.required],
         city: ['', Validators.required],
@@ -70,6 +73,13 @@ export class FormRegisterComponent implements OnInit{
       // Agrega registros de consola para verificar la estructura del formulario principal
       console.log('Estructura del formulario principal:', this.formRegister.value);
     });
+  }
+  ngOnInit(): void {
+    this.formRegister.get(this.formLocation.paises)?.valueChanges.subscribe((value)=>{
+     console.log('country change',value);
+     
+    })
+
   }
 
   validateEmailAsync(
@@ -122,6 +132,7 @@ export class FormRegisterComponent implements OnInit{
 
   onSubmit() {
     if (this.formRegister.valid) {
+
       const personalInfoValue = this.formRegister.get('personalInfo')?.value;
       const locationInfoValue = this.formRegister.get('locationInfo')?.value;
 
@@ -141,6 +152,7 @@ export class FormRegisterComponent implements OnInit{
         console.log('INVALID FORM:', this.formRegister.value);
         this.showMessage('Register', 'The email is registered, try with another email');
       }
+
     }
   }
 
